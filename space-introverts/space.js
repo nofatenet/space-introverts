@@ -1,3 +1,10 @@
+let divbody = document.getElementById('mainGrid');
+    for(i = 0 ; i < 225 ; i++) {
+        let div = document.createElement('div');
+        div.className = '';
+        divbody.appendChild(div);
+    }
+
 document.addEventListener('DOMContentLoaded', () => {
     const squares = document.querySelectorAll('.grid div');
     const scoreDisplay = document.querySelector('#score');
@@ -33,12 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
             case 37:
             if(playerPos % gridWidth !== 0) 
             playerPos -=1;
-            console.log("Links!")
+            //console.log("Links!")
                 break;
             case 39:
             if(playerPos % gridWidth < gridWidth -1)
             playerPos +=1;
-            console.log("Rechts!")
+            //console.log("Rechts!")
                 break;
         }
         drawPlayer();
@@ -61,16 +68,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         for (let i = 0; i <= introverts.length -1; i++) {
             introverts[i] += direction;
+            
         }
         for (let i = 0; i <= introverts.length -1; i++) {
             if (!kills.includes(i)){ //do not re-add them
                 squares[introverts[i]].classList.add('introvert'); 
             }
         }
+        if (score == 30) {
+        console.log("You Made It!");
+        score = 33;
+    }
     }
 
     //is Game Over?
-    if(squares[playerPos].classList.contains('introvert', 'player')) {
+    if(squares[playerPos].classList.contains('introvert')) {
         console.log("hit!");
         scoreDisplay.textContent = 'Game Over';
         squares[playerPos].classList.add('explo');
@@ -81,9 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
             scoreDisplay.textContent = 'Game Over';
             clearInterval(introvertId);
         }
-    }
-    if (scoreDisplay.textContent === 30) {
-        console.log("You Made It!");
     }
 
     //how fast are those things?!
@@ -116,12 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout (() => squares[laserPos].classList.remove('laser'), 100);
             }
         }
-    // document.addEventListener('keydown', e => {
-    // if (e.keyCode === 32) {
-    //     laserId = setInterval(moveLaser, 100)
-    //     };
-    // });
-
     switch(e.keyCode) {
         case 32:
         laserId = setInterval(moveLaser, 120);
